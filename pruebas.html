@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion</title>
+</head>
+<body>
+    <div class="container mt-5">
+        {% extends "base.html" %}
+        {% block contenido %}
+        <div class="row justify-content-center align-items-center" style="margin-top: 150px;">
+
+        <div class="card col-6 mx-2 mb-5 border border-5 border-warning" style="width: 600px; height: 500px; background-color: rgba(255, 0, 0, 0.7);">
+            
+            <div class="card-header text-center fs-3 text-dark">
+                Iniciar sesión
+            </div>
+
+            <div class="card-body">
+                <form action="#" method="post" class="text-light">
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre o correo electrónico</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre o correo electrónico" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="contraseña" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </form>
+            </div>
+            <div class="card-footer text-center fs-5 text-dark">
+                ¿No tienes una cuenta? <a href="http://127.0.0.1:5000/formulario">Regístrate aquí</a>
+            </div>
+        </div>
+        {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

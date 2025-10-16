@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Inicio</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container" style="text-align: center; margin-top: 100px;">
+            {% extends "base.html" %}
+            {% block contenido %}
+            <h1 class="text-light">Bienvenido a la página de animales exóticos</h1>
+            <h3 class="text-light">Explora la diversidad de la fauna exótica entre terrestrez, voladores y acuáticos</h3>
+            <div class="row justify-content-center align-items-center">
+            {% for animal in animal %}
+                        <div class="card col-4 mx-1 mb-4 border border-5 border-dark" style="width: 640px; height: 360px; background-color: rgba(255, 0, 0, 0.7);">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{animal.imagen}}" class="img-fluid rounded-start" alt="{{animal.nombre}}" style="max-width: 220px; max-height: 220px; ">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                            <h3 class="card-title text-light">{{ animal.nombre }}</h3>
+                                            <h5 class="card-subtitle mb-2 text-muted">{{ animal.tipo }}</h5>
+                                            <p class="card-text fs-6 text-light">{{animal.informacion}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+            {% endfor %}
+        </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>

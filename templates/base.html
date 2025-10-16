@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi plantilla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body style="background-color: rgba(0, 11, 114, 0.98);">
+
+  <!-- Menu de navegacion -->
+  <nav class="navbar navbar-expand-lg fixed-top bg-warning text-dark border border-3 border-light fs-5">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/inicio">Inicio</a>
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/animales_exoticos">Animales exoticos</a>
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/vehiculos_antiguos">Vehiculos antiguos</a>
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/maravillas_mundo">Las maravillas del mundo</a>
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/formulario">Formulario</a>
+          <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/acerca_de">Acerca de</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container">
+
+        <div class="body">
+          <section>
+            {% block contenido %}
+            {% endblock %}
+          </section>
+        </div>
+
+      
+
+    </div>
+
+    <div class="footer align-items-end border border-2 border-light" style="background-color: rgba(255, 238, 0, 0.71); text-align: center; margin-top: 100px;">
+        <p class="fs-4">Proyecto de Plantillas con Flask</p>
+        <p class="fs-5">Desarrollado por: Jesus Antonio Sagarnaga Macias, edad de 17 años</p>
+        <p class="fs-5">Escuela: CETis61 en el curso de programacion, cursando el 5to semestre</p>
+        <p class="fs-5">Contacto: 23308060610335@cetis61.edu.mx</p>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
