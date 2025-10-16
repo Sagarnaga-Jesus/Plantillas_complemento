@@ -27,7 +27,8 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label" style="color: black;">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="contraseña" required>
+                    <input type="password" class="form-control" id="password" name="password" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" placeholder="contraseña" required>
+                    <label class="fs-5" style=>Minimo 8 caractres,mayusculas, minisculas y caracteres especiales</label>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>

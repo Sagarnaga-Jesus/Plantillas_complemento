@@ -1,6 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"]="1q2w3e4r5t6y7u8i9o0p"
 
 @app.route("/")
 def index():
@@ -118,6 +120,34 @@ def acerca():
 @app.route("/formulario")
 def formulario():
     return render_template("formulario.html")
+
+@app.route("/datos", methods=["POST", "GET"])
+def datos():
+    error =  None
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        contacto = request.form["contacto"]
+        contraseña = request.form["contraseña"]
+        dia = request.form["dia"]
+        mes = request.form["meses"]
+        año = request.form["año"]
+        genero = request.form["genero"]
+        
+        if contraseña != contraseña:
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+        if  error != None:
+            flash(error, "danger")
+            return render_template(("formulario.html"))
+        else:
+            flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+            return render_template("inicio.html")
+        
+        flash("¡Formulario enviado con éxito!", "success")
+        return render_template(url_for("formulario"))
+    else:
+        flash("Error al enviar el formulario. Por favor, inténtalo de nuevo.", "danger")
+        return render_template(url_for("formulario"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -22,15 +22,17 @@
             </div>
 
             <div class="card-body"> 
-                <form action="" method="post"> 
+                <form id="registros_dotos" action="/datos" method="post"> 
 
                 <div class="row ">
                     <div class="col-12 col-md-6">
-                        <input type="text" id="nombre" name="nombre"  placeholder="nombre" required class="border rounded" pattern="[A-Za-z]+" title="Solo se permiten letras" minlength="3" maxlength="30">
+                        <input type="text" id="nombre" name="nombre"  placeholder="nombre" required class="border rounded" pattern="[A-Za-z]+" title="Solo se permiten letras" minlength="3" maxlength="50"
+                        value="{{ request.form.get('nombre', '') }}">
                     </div>
 
                     <div class="col-12 col-md-6">
-                        <input type="text" id="apellido" name="apellido" placeholder="apellido" required class="border rounded" pattern="[A-Za-z]+" title="Solo se permiten letras" minlength="3" maxlength="30">
+                        <input type="text" id="apellido" name="apellido" placeholder="apellido" required class="border rounded" pattern="[A-Za-z]+" title="Solo se permiten letras" minlength="3" maxlength="50"
+                        value="{{ request.form.get('apellido', '') }}">
                     </div>
                 </div>
 
@@ -38,7 +40,7 @@
                     <label for="Fechanaci" class="form-label text-start">Fecha de nacimiento</label>
 
                     <div class="col-12 col-md-4 p-2">
-                    <input list="dia" name="dia" class="form-control" placeholder="dia">
+                    <input list="dia" name="dia" class="form-control" placeholder="dia" value="{{ request.form.get('dia', '') }}">
                         <datalist id="dia" class="border rounded">
                             <option value="1">
                             <option value="2">
@@ -81,7 +83,7 @@
                     </div>
 
                     <div class="col-12 col-md-4 p-2">
-                    <input list="meses" name="meses" class="form-control" placeholder="Mes">
+                    <input list="meses" name="meses" class="form-control" placeholder="Mes" value="{{ request.form.get('meses', '') }}">
                         <datalist id="meses" class="border rounded">
                             <option value="Enero">
                             <option value="Febrero">
@@ -99,7 +101,7 @@
                     </div>
 
                     <div class="col-12 col-md-4 p-2">
-                    <input list="año" name="año" class="form-control" placeholder="Año">
+                    <input list="año" name="año" class="form-control" placeholder="Año" value="{{ request.form.get('año', '') }}">
                         <datalist id="año" class="border rounded">
                             <option value="2025">
                             <option value="2024">
@@ -183,20 +185,23 @@
 
 
             <div class="row mb-3 ">
-                <label for="genero" class="text-start">Genero</label>
+                <label id="genero" for="generos" class="text-start">Genero</label>
                 
                 <div class="col-12 col-md-4 p-2 border rounded">
-                    <input type="radio" name="genero" id="hombre" value="hombre" required onclick="document.getElementById('personalizado').style.display='none'">
+                    <input type="radio" name="genero" id="hombre" required onclick="document.getElementById('personalizado').style.display='none'"
+                    value="{{ request.form.get('hombre', '') }}"    >
                     <label class="form-check-label">Hombre</label>
                 </div>
 
                 <div class="col-12 col-md-4 p-2 border rounded">
-                    <input type="radio" name="genero" id="mujer" value="mujer" required onclick="document.getElementById('personalizado').style.display='none'">
+                    <input type="radio" name="genero" id="mujer" required onclick="document.getElementById('personalizado').style.display='none'"
+                    value="{{ request.form.get('mujer', '') }}">
                     <label class="form-check-label">Mujer</label>
                 </div>
 
                 <div class="col-12 col-md-4 p-2 border rounded">
-                    <input type="radio" name="genero" id="otro" value="otro" required onclick="document.getElementById('personalizado').style.display='block'">
+                    <input type="radio" name="genero" id="otro" value="otro" required onclick="document.getElementById('personalizado').style.display='block'"
+                    value="{{ request.form.get('otro', '') }}">
                     <label class="form-check-label">Personalizado</label>
                 </div>
 
@@ -214,11 +219,14 @@
             </div>
 
             <div class="mb-3">
-                <input type="text" name="telocorreo" id="contacto" class="form-control" placeholder="Numero de telefono o Correo electronico">
+                <input type="text" name="contacto" id="contacto" class="form-control" placeholder="Numero de telefono o Correo electronico"
+                value="{{ request.form.get('contacto', '') }}" required>
             </div>
 
             <div class="mb-3">
-                <input type="password" name="contrasena" id="contrasena" class="form-control" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" placeholder="Contraseña nueva" required title="Mínimo 8 caracteres; incluir mayúscula, minúscula y número" autocomplete="new-password" aria-label="Contraseña nueva">
+                <input type="password" name="contraseña" id="contraseña" class="form-control" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" placeholder="Contraseña nueva" required title="Mínimo 8 caracteres; incluir mayúscula, minúscula y número" autocomplete="new-password" aria-label="Contraseña nueva"
+                value="{{ request.form.get('contraseña', '') }}">
+                <p class="">Minimo 8 caractres,mayusculas, minisculas y caracteres especiales</p>
             </div>
 
             <div class="card-footer">
