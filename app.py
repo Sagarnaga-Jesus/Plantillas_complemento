@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from datetime import datetime
+import re
 
 app = Flask(__name__)
 
@@ -134,20 +136,45 @@ def datos():
         año = request.form["año"]
         genero = request.form["genero"]
         
-        if contraseña != contraseña:
+        if contraseña != request.form["contraseña"]:
             error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
-        if  error != None:
-            flash(error, "danger")
-            return render_template(("formulario.html"))
-        else:
-            flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
-            return render_template("inicio.html")
+            if  error != None:
+                flash(error, "danger")
+                return render_template(("formulario.html"))
+            else:
+                flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+                return render_template("inicio.html")
+
+        año_num = int(año)
+        hoy = datetime.now()
+        edad = hoy.year - año_num
         
-        flash("¡Formulario enviado con éxito!", "success")
-        return render_template(url_for("formulario"))
-    else:
-        flash("Error al enviar el formulario. Por favor, inténtalo de nuevo.", "danger")
-        return render_template(url_for("formulario"))
+
+        if edad < 18:
+            error = "Debes ser mayor de edad para registrarte."
+            if  error != None:
+                flash(error, "danger")
+                return render_template(("formulario.html"))
+            else:
+                flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+                return render_template("inicio.html")
+            
+        
+        patron_correo = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        correo = re.match(patron_correo, contacto)
+        numero = contacto.isdigit() and len(contacto) == 10
+
+        if not correo and not numero:
+            flash("El número o correo electrónico es inválido.", "danger")
+            return render_template("formulario.html")
+
+        # Si todo está bien
+        flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+        return render_template("inicio.html")
+
+
+
+    return render_template("inicio.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
