@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-mx">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesion</title>
@@ -16,8 +16,19 @@
                 <h2>Iniciar sesión</h2>
             </div>
 
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
             <div class="card-body">
-                <form action="#" method="post" class="text-light">
+                <form action="/datos" method="post" class="text-light">
 
                 <div class="mb-3">
                     <label for="nombre" class="form-label fs-5" style="color: black;">Nombre o correo electrónico</label>

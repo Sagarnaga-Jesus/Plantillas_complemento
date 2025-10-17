@@ -21,18 +21,18 @@
                 <h4 class="fw-bold">Crea una Cuenta</h4> 
                 <p class="fs-6">rapido y facil</p>
             </div>
-
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
+            <div class="container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
 
             <div class="card-body"> 
                 <form id="registros_dotos" action="/datos" method="post"> 
@@ -223,9 +223,9 @@
             <div class="mb-3" id="personalizado" style="display: none;">
                         <input list="otros" name="genero" class="form-control" placeholder="Personalizado">
                         <datalist id="otros" class="border rounded">
-                            <option value="Femenino: Saludala por su cumpleaños">
-                            <option value="Masculino: Saludalo por su cumpleaños">
-                            <option value="Neutro: Saludal@ por su cumpleaños">
+                            <option value="Femenino: Saludala por su cumpleaños" {{ request.form.get('Femenino', '') }}>
+                            <option value="Masculino: Saludalo por su cumpleaños" {{ request.form.get('Masculino', '') }}>
+                            <option value="Neutro: Saludal@ por su cumpleaños" {{ request.form.get('Neutro', '') }}>
                         </datalist>
                         <label for="personalizado" class="form-label">Tu pronombre sera vicible para todos</label>
                         <input type="text" name="genero" class="form-control" placeholder="Genero (opcional)">
