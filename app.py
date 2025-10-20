@@ -136,6 +136,24 @@ def datos():
         año = request.form["año"]
         genero = request.form["genero"]
         
+        if nombre != nombre:
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            if  error != None:
+                flash(error, "danger")
+                return render_template(("formulario.html"))
+            else:
+                flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+                return render_template("base2.html")
+            
+        if apellido != apellido:
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            if  error != None:
+                flash(error, "danger")
+                return render_template(("formulario.html"))
+            else:
+                flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+                return render_template("base2.html")
+        
         if contraseña != request.form["contraseña"]:
             error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
             if  error != None:
@@ -143,13 +161,12 @@ def datos():
                 return render_template(("formulario.html"))
             else:
                 flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
-                return render_template("inicio.html")
+                return render_template("base2.html")
 
         año_num = int(año)
         hoy = datetime.now()
         edad = hoy.year - año_num
         
-
         if edad < 18:
             error = "Debes ser mayor de edad para registrarte."
             if  error != None:
@@ -157,7 +174,7 @@ def datos():
                 return render_template(("formulario.html"))
             else:
                 flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
-                return render_template("inicio.html")
+                return render_template("base2.html")
             
         
         patron_correo = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -169,7 +186,7 @@ def datos():
             return render_template("formulario.html")
         else:
             flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
-            return render_template("inicio.html")
+            return render_template("base2.html")
 
 @app.route("/sesion", methods=["POST", "GET"])
 def sesion():
