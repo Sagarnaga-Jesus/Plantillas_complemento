@@ -167,13 +167,38 @@ def datos():
         if not correo and not numero:
             flash("El número o correo electrónico es inválido.", "danger")
             return render_template("formulario.html")
+        else:
+            flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
+            return render_template("inicio.html")
 
-        # Si todo está bien
-        flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
-        return render_template("inicio.html")
+@app.route("/sesion", methods=["POST", "GET"])
+def sesion():
+    error =  None
+    if request.method == "POST":
+        contacto = request.form["contacto"]
+        contraseña = request.form["contraseña"]
+        
+        if contraseña != request.form["contraseña"]:
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            if  error != None:
+                flash(error, "danger")
+                return render_template(("base2.html"))
+            else:
+                flash(f"¡Formulario enviado con éxito! para: {contacto}", "success")
+            return render_template("inicio.html")
+    
+    
+        patron_correo = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        correo = re.match(patron_correo, contacto)
+        numero = contacto.isdigit() and len(contacto) == 10
 
-
-
+        if not correo and not numero:
+            flash("El número o correo electrónico es inválido.", "danger")
+            return render_template("base2.html")
+        else:
+            flash(f"¡Formulario enviado con éxito! para: {contacto}", "success")
+            return render_template("inicio.html")
+        
     return render_template("inicio.html")
 
 if __name__ == "__main__":
