@@ -179,7 +179,7 @@ def sesion():
         contraseña = request.form["contraseña"]
         
         if contraseña != request.form["contraseña"]:
-            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo. O no"
             if  error != None:
                 flash(error, "danger")
                 return render_template(("base2.html"))

@@ -38,9 +38,9 @@
 
                 <div class="mb-3">
                     <label for="contraseña" class="form-label fs-5" style="color: black;">Contraseña</label>
-                    <input type="password" name="contraseña" id="contraseña" class="form-control" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" placeholder="Contraseña nueva" required title="Mínimo 8 caracteres; incluir mayúscula, minúscula y número" autocomplete="new-password" aria-label="Contraseña nueva"
-                value="{{ request.form.get('contraseña', '') }}">
-                    <label class="fs-6" style="color: black;">Minimo 8 caractres,mayusculas, minisculas y caracteres especiales</label>
+                    <input type="password" name="contraseña" id="contraseña" class="form-control" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*" placeholder="Contraseña" required title="Mínimo 8 caracteres; incluir mayúscula, minúscula y número" autocomplete="new-password" aria-label="Contraseña"
+                        value="{{ request.form.get('contraseña', '') }}">
+                    
                 </div>
 
                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
