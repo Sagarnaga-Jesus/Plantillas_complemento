@@ -1,10 +1,32 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
 import re
 
 app = Flask(__name__)
 
 app.config["SECRET_KEY"]="1q2w3e4r5t6y7u8i9o0p"
+
+# @app.permanent session lifetime =  timedelta(minutes=5)
+# @app.permanent = True
+
+@app.route("/login/<username>")#registra sesión
+def login(username):
+    session['username'] = username
+    return f"Hola, {username}! Has iniciado sesión correctamente."
+
+@app.route("/perfil")#muestra perfil de usuario o inicia secion
+def profile():
+    username = session.get('username')
+    if username is not None:
+        return "user: " + username
+    return "Not logged in!"
+
+@app.route("/logout")#cierra sesión
+def logout():
+    session.pop('username', None)
+    return "Has cerrado sesión correctamente."
+
+
 
 @app.route("/")
 def index():
