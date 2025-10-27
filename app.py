@@ -5,6 +5,7 @@ import re
 app = Flask(__name__)
 
 app.config["SECRET_KEY"]="1q2w3e4r5t6y7u8i9o0p"
+app.secret_key="1q2w3e4r5t6y7u8i9o0pazsxdcfvgbhnjmkl"
 #@app.permanent session lifetime =  timedelta(minutes=5)
 #@app.permanent = True
 
@@ -12,8 +13,6 @@ personas = []
 
 @app.route("/login/<username>")#registra sesión
 def login(username):
-    
-    
     session['username'] = username
     return f"Hola, {username}! Has iniciado sesión correctamente."
 
@@ -247,12 +246,11 @@ def sesion():
                 flash(error, "danger")
                 return render_template(("base2.html"))
             else:
-                session['username'] = usuario_encontrado["name"]
                 flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
             return render_template("inicio.html")
 
         if usuario_encontrado["contacto"]!=contacto:
-            flash("El número o correo electrónico es inválido.", "danger")
+            flash(f"El número o correo electrónico es inválido.", "danger")
             return render_template("base2.html")
         else:
             flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
@@ -265,7 +263,7 @@ def cerrar_sesion():
     session.pop('username', None)
     return render_template("base2.html")
 
-print(personas)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

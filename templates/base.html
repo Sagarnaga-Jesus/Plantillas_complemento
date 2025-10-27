@@ -16,17 +16,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          
+          {%if not session.get('username')%}
           <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/">Inicio</a>
           <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/animales_exoticos">Animales exoticos</a>
           <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/vehiculos_antiguos">Vehiculos antiguos</a>
           <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/maravillas_mundo">Las maravillas del mundo</a>
           <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/acerca_de">Acerca de</a>
 
-          {%if session.get('username')%}
-            <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/sesion">Iniciar sesión</a>
-          {% else %}
+          
             <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000//cerrar_sesion">Cerrar sesión</a>
+          {% else %}
+            <a class="nav-link text-dark fs-5" href="http://127.0.0.1:5000/sesion">Iniciar sesión</a>
           {% endif %}
           
 
