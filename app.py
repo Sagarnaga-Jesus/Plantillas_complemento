@@ -25,14 +25,16 @@ def profile():
 
 @app.route("/logout")#cierra sesión
 def logout():
-    session.pop('username', None)
-    return "Has cerrado sesión correctamente."
-
-
+    if session.get("logout"):
+        session.clear()
+        return render_template("inicio,html")
+    return render_template("base2.html")
 
 @app.route("/sesion")
 def index():
-    
+    if session.get("logout"):
+        session.clear()
+        return render_template("inicio,html")
     return render_template("base2.html")
 
 @app.route("/")
@@ -148,7 +150,7 @@ def acerca():
 def formulario():
     return render_template("formulario.html")
 
-@app.route("/datos", methods=["POST", "GET"])
+@app.route("/datos")
 def datos():
     
     error =  None
@@ -226,9 +228,15 @@ def datos():
             return render_template("base2.html")
         
 
-
-@app.route("/sesion", methods=["POST", "GET"])
+@app.route("/sesion")
 def sesion():
+    if not session.get("logout") == True:
+        return render_template("inicio.html")
+    else:
+        return render_template("base2.html")
+    
+@app.route("/validaSesion")
+def validaSesion():
     error =  None
     if request.method == "POST":
         contacto = request.form["contacto"]
@@ -238,7 +246,6 @@ def sesion():
             if persona["contacto"] == contacto and persona["contraseña"] == contraseña:
                 usuario_encontrado = persona
                 break
-
         
         if contraseña != usuario_encontrado["contraseña"]:
             error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo. O no"
@@ -246,6 +253,8 @@ def sesion():
                 flash(error, "danger")
                 return render_template(("base2.html"))
             else:
+                sesion["logout"]=True
+                usuario_encontrado["name"]
                 flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
             return render_template("inicio.html")
 
@@ -253,15 +262,11 @@ def sesion():
             flash(f"El número o correo electrónico es inválido.", "danger")
             return render_template("base2.html")
         else:
+            
             flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
             return render_template("inicio.html")
         
     return render_template("inicio.html")
-
-@app.route("/cerrar_sesion")
-def cerrar_sesion():
-    session.pop('username', None)
-    return render_template("base2.html")
 
 
 

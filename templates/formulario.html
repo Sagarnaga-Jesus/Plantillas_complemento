@@ -9,8 +9,8 @@
 </head>
 
 <body >
+    {% extends "base.html" %}
     {% block contenido %}
-    
     <div class="container mt-5" style="text-align: center; margin-top: 100px;">
 
     <div class="row d-flex justify-content-center align-items-center" >
@@ -248,7 +248,7 @@
                 <p class="fs-6">Al hacer clic en "Registrarte", aceptas nuestras <a href="https://es-la.facebook.com/legal/terms/update">Condiciones</a>, la <a href="https://es-la.facebook.com/privacy/explanation">Política de privacidad</a> y la <a href="https://es-la.facebook.com/policy.php">Política de cookies</a>. 
                     Es posible que te enviemos notificaciones por SMS, que puedes desactivar cuando quieras.</p>
                 <input class="btn btn-success w-100" type="submit" value="Registrar" name="Regristar" id="Registrar">
-                <p><a href="http://127.0.0.1:5000/" class="link-underline-primary">¿Ya tienes una cuenta?</a></p>
+                <p><a href="/" class="link-underline-primary">¿Ya tienes una cuenta?</a></p>
             </div>
 
                 </form>
