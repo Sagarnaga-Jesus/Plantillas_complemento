@@ -160,18 +160,7 @@ def datos():
         año = request.form["año"]
         genero = request.form["genero"]
         
-        personas.append(
-            {"name": nombre,
-            "apellido": apellido,
-            "contacto": contacto,
-            "contraseña": contraseña,
-            "dia": dia,
-            "mes": mes,
-            "año": año,
-            "genero": genero
-            }
-        )
-        print(personas)
+        
         
         if nombre == "nombre":
             error = "favor de rellenar con informacion valida nombre"
@@ -223,8 +212,22 @@ def datos():
             flash("El número o correo electrónico es inválido.", "danger")
             return render_template("formulario.html")
         else:
+            personas.append(
+            {"name": nombre,
+            "apellido": apellido,
+            "contacto": contacto,
+            "contraseña": contraseña,
+            "dia": dia,
+            "mes": mes,
+            "año": año,
+            "genero": genero
+            }
+            )
+            print("Registro exitoso:", personas[-1])
             flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
             return render_template("base2.html")
+        
+
         
 
 
@@ -232,12 +235,14 @@ def datos():
 def valisesion():
     if session.get("logout") == None:
         session.clear()
+        flash("¡Sesión iniciada con éxito!", "success")
         return render_template("inicio.html")
-    else:
-        if session.get("logout") == True:
-            session.clear()
-            return render_template("base2.html")
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("¡Sesión cerrada con éxito!", "success")
+    return redirect(url_for("valisesion"))
 
 @app.route("/sesion", methods=["POST", "GET"])
 def sesion():
@@ -245,11 +250,16 @@ def sesion():
     if request.method == "POST":
         contacto = request.form["contacto"]
         contraseña = request.form["contraseña"]
+        usuario_encontrado = None
         
         for persona in personas:
             if persona["contacto"] == contacto:
                 usuario_encontrado = persona
                 break
+            
+        if not usuario_encontrado:
+            flash("Usuario no encontrado. Por favor, regístrate. O intenta de nuevo", "danger")
+            return render_template("base2.html")
         
         if contraseña != usuario_encontrado["contraseña"]:
             error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
@@ -260,14 +270,14 @@ def sesion():
             flash(f"El número o correo electrónico es inválido.", "danger")
             return render_template("base2.html")
         
+        
+        
         session['username'] = usuario_encontrado["name"]
         session['logout'] = True
         flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
         return render_template("inicio.html")
         
     return render_template("base2.html")
-
-print(personas)
 
 if __name__ == "__main__":
     app.run(debug=True)
