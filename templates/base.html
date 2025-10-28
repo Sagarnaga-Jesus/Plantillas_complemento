@@ -21,20 +21,29 @@
           <a class="nav-link text-dark fs-5" href="/animales_exoticos">Animales exoticos</a>
           <a class="nav-link text-dark fs-5" href="/vehiculos_antiguos">Vehiculos antiguos</a>
           <a class="nav-link text-dark fs-5" href="/maravillas_mundo">Las maravillas del mundo</a>
-          <a class="nav-link text-dark fs-5" href="/formulario">Registrate</a>
+          
+          <a class="nav-link text-dark fs-5" href="/formulario">
+            {%if not session.get('logout')%}
+              
+              {%else%}
+              Registrate
+            {%endif%}
+          </a>
+
           <a class="nav-link text-dark fs-5" href="/acerca_de">Acerca de</a>
 
           
-            <a class="nav-link text-dark fs-5" href="/sesion">
-              {%if not session.get('logout')%}
-                Inicar Sesion
-              {%else%}
-                Cerrar Sesion
-              {%endif%}
-            </a>
+            <a class="nav-link text-dark fs-5" href="/valisesion">
+  {% if not session.get('username') %}
+    Iniciar Sesión
+  {% else %}
+    Cerrar Sesión
+  {% endif %}
+</a>
+
             
             {%if session.get("logout")%}
-              <a class="nav-link text-dark fs-5">Bienvenido {{session.get("usuario")}}</a>
+              <a class="nav-link text-dark fs-5">Bienvenido {{session.get("username")}}</a>
             {%endif%}
               
 

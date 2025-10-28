@@ -1,15 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from datetime import datetime
+from datetime import timedelta,datetime
 import re
 
 app = Flask(__name__)
 
 app.config["SECRET_KEY"]="1q2w3e4r5t6y7u8i9o0p"
 app.secret_key="1q2w3e4r5t6y7u8i9o0pazsxdcfvgbhnjmkl"
-#@app.permanent session lifetime =  timedelta(minutes=5)
-#@app.permanent = True
+app.permanent_session_lifetime =  timedelta(minutes=8)
+#app.permanent = True
 
-personas = []
+personas = [
+            {"name": "Jesus",
+            "apellido": "Macias",
+            "contacto": "6561056934",
+            "contraseña": "luego9_!K",
+            "dia": "dia",
+            "mes": "mes",
+            "año": 'año',
+            "genero": "masculino",}
+]
 
 @app.route("/login/<username>")#registra sesión
 def login(username):
@@ -23,19 +32,7 @@ def profile():
         return "user: " + username
     return "Not logged in!"
 
-@app.route("/logout")#cierra sesión
-def logout():
-    if session.get("logout"):
-        session.clear()
-        return render_template("inicio,html")
-    return render_template("base2.html")
 
-@app.route("/sesion")
-def index():
-    if session.get("logout"):
-        session.clear()
-        return render_template("inicio,html")
-    return render_template("base2.html")
 
 @app.route("/")
 def inicio():
@@ -150,9 +147,8 @@ def acerca():
 def formulario():
     return render_template("formulario.html")
 
-@app.route("/datos")
+@app.route("/datos", methods=["POST", "GET"])
 def datos():
-    
     error =  None
     if request.method == "POST":
         nombre = request.form["nombre"]
@@ -164,7 +160,8 @@ def datos():
         año = request.form["año"]
         genero = request.form["genero"]
         
-        persona ={"name": nombre,
+        personas.append(
+            {"name": nombre,
             "apellido": apellido,
             "contacto": contacto,
             "contraseña": contraseña,
@@ -173,7 +170,8 @@ def datos():
             "año": año,
             "genero": genero
             }
-        personas.append(persona)
+        )
+        print(personas)
         
         if nombre == "nombre":
             error = "favor de rellenar con informacion valida nombre"
@@ -181,6 +179,7 @@ def datos():
                 flash(error, "danger")
                 return render_template(("formulario.html"))
             else:
+                
                 flash(f"¡Formulario enviado con éxito! para: {nombre}", "success")
                 return render_template("base2.html")
             
@@ -228,47 +227,47 @@ def datos():
             return render_template("base2.html")
         
 
-@app.route("/sesion")
-def sesion():
-    if not session.get("logout") == True:
+
+@app.route("/valisesion")
+def valisesion():
+    if session.get("logout") == None:
+        session.clear()
         return render_template("inicio.html")
     else:
-        return render_template("base2.html")
-    
-@app.route("/validaSesion")
-def validaSesion():
+        if session.get("logout") == True:
+            session.clear()
+            return render_template("base2.html")
+
+
+@app.route("/sesion", methods=["POST", "GET"])
+def sesion():
     error =  None
     if request.method == "POST":
         contacto = request.form["contacto"]
         contraseña = request.form["contraseña"]
         
         for persona in personas:
-            if persona["contacto"] == contacto and persona["contraseña"] == contraseña:
+            if persona["contacto"] == contacto:
                 usuario_encontrado = persona
                 break
         
         if contraseña != usuario_encontrado["contraseña"]:
-            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo. O no"
-            if  error != None:
-                flash(error, "danger")
-                return render_template(("base2.html"))
-            else:
-                sesion["logout"]=True
-                usuario_encontrado["name"]
-                flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
-            return render_template("inicio.html")
+            error = "Las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            flash(error, "danger")
+            return render_template(("base2.html"))
 
-        if usuario_encontrado["contacto"]!=contacto:
+        if contacto != usuario_encontrado["contacto"]:
             flash(f"El número o correo electrónico es inválido.", "danger")
             return render_template("base2.html")
-        else:
-            
-            flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
-            return render_template("inicio.html")
         
-    return render_template("inicio.html")
+        session['username'] = usuario_encontrado["name"]
+        session['logout'] = True
+        flash(f"¡Sesion iniciada con éxito! para: {contacto}", "success")
+        return render_template("inicio.html")
+        
+    return render_template("base2.html")
 
-
+print(personas)
 
 if __name__ == "__main__":
     app.run(debug=True)
